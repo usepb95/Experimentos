@@ -1,0 +1,23 @@
+function [dt]= delta_t (U1,U2,U3,CFL,dx,dy,rho,p,gamma)
+
+c=sqrt(gamma*p./rho);
+u1=U2./U1+c;
+u2=U2./U1-c;
+v1=U3./U1+c;
+v2=U3./U1-c;
+
+u_max1 = max(u1);
+u_max2 = max(u2);
+umax1 = max(u_max1');
+umax2 = max(u_max2');
+u_max = max(umax2,umax1);
+
+v_max1 = max(v1);
+v_max2 = max(v2);
+vmax1 = max(v_max1');
+vmax2 = max(v_max2');
+v_max = max(vmax2,vmax1);
+
+dt=CFL/((u_max/dx)+(v_max/dy));
+
+end
